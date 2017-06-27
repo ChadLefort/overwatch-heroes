@@ -1,0 +1,1 @@
+web: nodemon --debug=6868 lib/server/index.js
