@@ -1,15 +1,20 @@
+import * as bodyParser from 'body-parser';
 import { handlebars } from 'consolidate';
 import * as express from 'express';
 import { registerControllers } from 'giuseppe';
 import * as path from 'path';
 import * as serveFavicon from 'serve-favicon';
+import { getConnectionManager } from 'typeorm';
 import './controllers';
+import { Hero } from './models/hero';
 
 const app = express();
 
 app.engine('hbs', handlebars);
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, '/views'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 // app.use(serveFavicon(path.join(__dirname, '../public/assets/favicon.png')));
 
 if (process.env.NODE_ENV === 'development') {
@@ -33,6 +38,19 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(registerControllers('/api'));
 app.set('port', process.env.DEV_PORT || '1337');
+
+getConnectionManager().create({
+    type: 'mysql',
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    entities: [Hero],
+    autoSchemaSync: true,
+});
+
+export const connection = getConnectionManager().get().connect();
 
 const listener = app.listen(app.get('port'), () => {
     console.log('Express server listening on port ' + listener.address().port);

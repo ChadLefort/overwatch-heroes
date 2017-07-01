@@ -38,7 +38,7 @@ class Heros extends React.Component<Props, {}> {
                     </Grid.Column>
                     <Grid.Column width={13}>
                         <Segment>
-                            {this.props.location.pathname === '/heros' ? <p> Click on the heros to learn more </p> : null}
+                            {this.props.location.pathname === '/heros' && <p> Click on the heros to learn more </p>}
                             {this.props.children}
                         </Segment>
                     </Grid.Column>
