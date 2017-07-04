@@ -1,12 +1,12 @@
 import * as _ from 'lodash';
+import { Action } from '../../actions/heros/herosActions';
+import * as actions from '../../constants/herosTypes';
 import { Hero } from '../../models';
-import * as actions from './action-types';
-import { Action } from './actions';
 
 export type State = {
-  readonly heros: Array<Hero>,
-  readonly fetching: boolean,
-  readonly error: Error,
+    readonly heros: Array<Hero>,
+    readonly fetching: boolean,
+    readonly error: Error,
 };
 
 const initialState: State = {
@@ -30,9 +30,8 @@ export function reducer(state = initialState, action: Action): State {
             return { ...state, heros: action.payload };
         }
         case actions.UPDATE_FAVORITE_HEROS: {
-            const heros = _.map(state.heros, (hero) => {
-                return hero.id === action.payload.id ? {...hero, isFavorite: action.payload.isFavorite} : hero;
-            });
+            const heros = _.map(state.heros, (hero) =>
+                hero.id === action.payload.id ? { ...hero, isFavorite: action.payload.isFavorite } : hero);
 
             return { ...state, heros };
         }

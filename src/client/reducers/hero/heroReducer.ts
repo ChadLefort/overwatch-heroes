@@ -1,6 +1,6 @@
-import { Hero } from '../../../models/hero';
-import * as actions from './action-types';
-import { Action } from './actions';
+import { Action } from '../../actions/hero/heroActions';
+import * as actions from '../../constants/heroTypes';
+import { Hero } from '../../models/hero';
 
 export type State = {
   readonly hero: Hero,

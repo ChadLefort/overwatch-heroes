@@ -3,29 +3,19 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { returntypeof } from 'react-redux-typescript';
 import { Container, Grid, Menu, Segment } from 'semantic-ui-react';
-import HerosMenu from '../../components/heros/heros-menu';
-import { RootState } from '../../config/reducers';
-import { actionCreators } from './actions';
+import { actionCreators } from '../../actions/heros/herosActions';
+import HerosMenu from '../../components/heros/HerosMenu';
+import { RootState } from '../../reducers/reducers';
 
 const mapStateToProps = (rootState: RootState, ownProps) => ({
     heros: rootState.herosReducer.heros,
     location: ownProps.location,
 });
 
-const dispatchToProps = {
-    fetchHeros: actionCreators.fetchHeros,
-};
-
 const stateProps = returntypeof(mapStateToProps);
-type Props = typeof stateProps & typeof dispatchToProps;
+type Props = typeof stateProps;
 
 class Heros extends React.Component<Props, {}> {
-
-    public componentWillMount() {
-        if (_.isEmpty(this.props.heros)) {
-            this.props.fetchHeros();
-        }
-    }
 
     public render() {
         const { heros } = this.props;
@@ -48,4 +38,4 @@ class Heros extends React.Component<Props, {}> {
     }
 }
 
-export default connect(mapStateToProps, dispatchToProps)(Heros);
+export default connect(mapStateToProps, {})(Heros);

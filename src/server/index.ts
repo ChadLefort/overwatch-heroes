@@ -5,7 +5,7 @@ import { registerControllers } from 'giuseppe';
 import * as path from 'path';
 import * as serveFavicon from 'serve-favicon';
 import { getConnectionManager } from 'typeorm';
-import './controllers';
+import './controllers/controllers';
 import { Hero } from './models/hero';
 
 const app = express();

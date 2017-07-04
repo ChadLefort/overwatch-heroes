@@ -1,16 +1,17 @@
+import { AxiosResponse } from 'axios';
 import * as React from 'react';
 import { Grid, Segment } from 'semantic-ui-react';
-import { Hero } from '../../../models/hero';
+import { Hero } from '../../models/hero';
 import Abilities from './abilities';
 import Biography from './biography';
-import HeaderRow from './header-row';
-import PersonalNote from './personal-note';
+import HeaderRow from './HeaderRow';
+import PersonalNote from './PersonalNote';
 import Stats from './stats';
 
 type Props = {
     loading: boolean;
     hero: Hero;
-    updateFavoriteHero: (isFavorite: boolean) => Promise<void>,
+    updateFavoriteHero: (isFavorite: boolean) => Promise<AxiosResponse>,
 };
 
 export default class HeroPage extends React.Component<Props, {}> {

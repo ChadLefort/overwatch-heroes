@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { IndexRoute, Route } from 'react-router';
-import Layout from '../components/common/layout';
-import Home from '../components/home';
-import HerosContainer from '../features/heros/container';
-import HeroContainer from '../features/heros/hero/container';
+import Layout from '../components/common/Layout';
+import Home from '../components/home/Home';
+import HeroContainer from '../containers/hero/heroContainer';
+import HerosContainer from '../containers/heros/herosContainer';
 
 export default (
     <Route path="/" component={Layout} >

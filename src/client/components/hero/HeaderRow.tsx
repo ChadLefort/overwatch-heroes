@@ -1,12 +1,13 @@
+import { AxiosResponse } from 'axios';
 import * as _ from 'lodash';
 import * as React from 'react';
 import { Button, Grid, Header, Icon, Image  } from 'semantic-ui-react';
-import { Hero } from '../../../models/hero';
-import FavoriteHero from '../../common/favorite-hero';
+import { Hero } from '../../models/hero';
+import FavoriteHero from './FavoriteHero';
 
 type Props = {
     hero: Hero;
-    updateFavoriteHero: (isFavorite: boolean) => Promise<void>,
+    updateFavoriteHero: (isFavorite: boolean) => Promise<AxiosResponse>,
 };
 
 const HeaderRow = (props: Props) => {
@@ -14,7 +15,7 @@ const HeaderRow = (props: Props) => {
     let image: JSX.Element;
 
     if (!_.isUndefined(hero.id)) {
-        image = <Image shape="rounded" src={require(`../../../../assets/heros/${hero.id}.png`)} />;
+        image = <Image shape="rounded" src={require(`../../../assets/heros/${hero.id}.png`)} />;
     }
 
     return (

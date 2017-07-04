@@ -3,11 +3,15 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { browserHistory, Router } from 'react-router';
 import 'semantic-ui-css/semantic.min.css';
+import { actionCreators } from './actions/heros/herosActions';
 import routes from './config/routes';
 import store from './config/store';
 
 declare const module: { hot: any };
 const rootEl = document.getElementById('content');
+
+store.dispatch(actionCreators.fetchHeros());
+
 const App = () => {
     return (
         <Provider store={store}>

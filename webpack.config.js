@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const buildPath = path.resolve(__dirname, 'lib/public');
-const mainPath = path.resolve(__dirname, 'src/client/app.tsx');
+const mainPath = path.resolve(__dirname, 'src/client/index.tsx');
 const config = {
     entry: [
         'react-hot-loader/patch',

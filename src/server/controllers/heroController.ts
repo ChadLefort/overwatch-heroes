@@ -3,8 +3,8 @@ import { Body, Controller, Get, Post, Req, Res, UrlParam } from 'giuseppe';
 import { connection } from '../';
 import { Hero } from '../models/hero';
 
-@Controller('heros')
-export class HerosController {
+@Controller('hero')
+export class HeroController {
 
     @Get('create')
     public create( @Req() req: Request, @Res() res: Response): void {

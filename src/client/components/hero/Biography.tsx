@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Grid, Header, List } from 'semantic-ui-react';
-import { Hero } from '../../../models/hero';
+import { Hero } from '../../models/hero';
 
 type Props = {
     hero: Hero;

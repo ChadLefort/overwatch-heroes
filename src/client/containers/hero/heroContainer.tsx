@@ -1,21 +1,23 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { returntypeof } from 'react-redux-typescript';
+import { Dispatch } from 'redux';
 import { Dimmer, Loader, Segment } from 'semantic-ui-react';
-import Hero from '../../../components/heros/hero';
-import { RootState } from '../../../config/reducers';
-import { actionCreators } from './actions';
+import { actionCreators } from '../../actions/hero/heroActions';
+import HeroPage from '../../components/hero/HeroPage';
+import { RootState } from '../../reducers/reducers';
 
 const mapStateToProps = (rootState: RootState) => ({
     hero: rootState.heroReducer.hero,
     loading: rootState.heroReducer.fetching,
 });
 
-const dispatchToProps = {
-    fetchHero: actionCreators.fetchHero,
-    resetHero: actionCreators.resetHero,
-    updateFavoriteHero: actionCreators.updateFavoriteHero as any,
-};
+const mapDispatchToProps = (dispatch: Dispatch<RootState>) => ({
+    fetchHero: (id: string) => dispatch(actionCreators.fetchHero(id)),
+    resetHero: () => dispatch(actionCreators.resetHero()),
+    updateFavoriteHero: (id: string, isFavorite: boolean) =>
+        dispatch(actionCreators.updateFavoriteHero(id, isFavorite)),
+});
 
 type ParamsProps = {
     params: Params;
@@ -26,7 +28,8 @@ type Params = {
 };
 
 const stateProps = returntypeof(mapStateToProps);
-type Props = typeof stateProps & typeof dispatchToProps & ParamsProps;
+const dispatchProps = returntypeof(mapDispatchToProps);
+type Props = typeof stateProps & typeof dispatchProps & ParamsProps;
 
 class HeroContainer extends React.Component<Props, {}> {
 
@@ -45,16 +48,16 @@ class HeroContainer extends React.Component<Props, {}> {
     }
 
     public updateFavoriteHero = (isFavorite: boolean) => {
-         return this.props.updateFavoriteHero(this.props.params.id, isFavorite);
+        return this.props.updateFavoriteHero(this.props.params.id, isFavorite);
     }
 
     public render() {
         const { loading, hero } = this.props;
 
         return (
-            <Hero loading={loading} hero={hero} updateFavoriteHero={this.updateFavoriteHero} />
+            <HeroPage loading={loading} hero={hero} updateFavoriteHero={this.updateFavoriteHero} />
         );
     }
 }
 
-export default connect(mapStateToProps, dispatchToProps)(HeroContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(HeroContainer);

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { reducer as heroReducer, State as HeroState } from '../features/heros/hero/reducer';
-import { reducer as herosReducer, State as HerosState } from '../features/heros/reducer';
+import { reducer as heroReducer, State as HeroState } from './hero/heroReducer';
+import { reducer as herosReducer, State as HerosState } from './heros/herosReducer';
 
 export type RootState = {
     heroReducer: HeroState

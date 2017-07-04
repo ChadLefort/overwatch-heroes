@@ -1,10 +1,11 @@
 import request from 'axios';
 import * as _ from 'lodash';
 import { returntypeof } from 'react-redux-typescript';
-import { externalApiRootURL, internalApiRootURL } from '../../config';
-import { RootState } from '../../config/reducers';
+import { ThunkAction } from 'redux-thunk';
+import * as actions from '../../constants/herosTypes';
+import * as serviceTypes from '../../constants/serviceTypes';
 import { Hero, Heros } from '../../models/';
-import * as actions from './action-types';
+import { RootState } from '../../reducers/reducers';
 
 export const actionCreators = {
     fetchHerosLoading: () => ({
@@ -21,24 +22,24 @@ export const actionCreators = {
         type: actions.FETCH_HEROS_ERROR as typeof actions.FETCH_HEROS_ERROR,
         error,
     }),
-    fetchHeros: () => async (dispatch: Redux.Dispatch<RootState>) => {
-        dispatch(actionCreators.fetchHerosLoading());
+    fetchHeros: (): ThunkAction<Promise<void>, RootState, null> =>
+        async (dispatch) => {
+            dispatch(actionCreators.fetchHerosLoading());
 
-        try {
-            const externalHeroResponse = await request.get(`${externalApiRootURL}/hero`);
-            const internalHeroResponse = await request.get(`${internalApiRootURL}/heros`);
-            const mergedHeros = _.map(externalHeroResponse.data.data, (hero: Hero) => {
-                return _.assign(hero, _.find(internalHeroResponse.data, { id: hero.id }));
-            });
+            try {
+                const externalHeroResponse = await request.get(`${serviceTypes.EXTERNAL_API_ROOT_URL}/hero`);
+                const internalHeroResponse = await request.get(`${serviceTypes.INTERNAL_API_ROOT_URL}/hero`);
+                const mergedHeros = _.map(externalHeroResponse.data.data, (hero: Hero) =>
+                    _.assign(hero, _.find(internalHeroResponse.data, { id: hero.id })));
 
-            dispatch(actionCreators.fetchHerosSuccess(mergedHeros));
-        } catch (error) {
-            dispatch(actionCreators.fetchHerosError(error));
-        } finally {
-            dispatch(actionCreators.fetchHerosNotLoading());
-        }
-    },
-    updateFavoriteHeros: (payload: {id: number, isFavorite: boolean}) => ({
+                dispatch(actionCreators.fetchHerosSuccess(mergedHeros));
+            } catch (error) {
+                dispatch(actionCreators.fetchHerosError(error));
+            } finally {
+                dispatch(actionCreators.fetchHerosNotLoading());
+            }
+        },
+    updateFavoriteHeros: (payload: { id: number, isFavorite: boolean }) => ({
         type: actions.UPDATE_FAVORITE_HEROS as typeof actions.UPDATE_FAVORITE_HEROS,
         payload,
     }),

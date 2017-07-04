@@ -1,9 +1,11 @@
+import { AxiosResponse } from 'axios';
 import * as React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
+import { Hero } from '../../models';
 
 type Props = {
     isFavorite: boolean;
-    updateFavoriteHero: (isFavorite: boolean) => Promise<void>,
+    updateFavoriteHero: (isFavorite: boolean) => Promise<AxiosResponse>,
 };
 
 type State = {
@@ -27,8 +29,9 @@ export default class FavoriteHero extends React.Component<Props, any> {
     }
 
     public toggleFavoriteHero = async () => {
-        const response: any = await this.props.updateFavoriteHero(!this.state.favorite);
-        this.setState({ favorite: response.data.isFavorite });
+        const response = await this.props.updateFavoriteHero(!this.state.favorite);
+        const hero: Hero = response.data;
+        this.setState({ favorite: hero.isFavorite });
     }
 
     public render() {

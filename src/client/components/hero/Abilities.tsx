@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import * as React from 'react';
 import { Card, Grid, Header } from 'semantic-ui-react';
-import { Ability, Hero } from '../../../models/';
+import { Ability, Hero } from '../../models/';
 
 type Props = {
     abilities: Array<Ability>;

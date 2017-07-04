@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Container } from 'semantic-ui-react';
 import '../../styles/_main.scss';
-import Header from './header';
+import Header from './Header';
 
 class Layout extends React.Component<any, any> {
     public render() {
