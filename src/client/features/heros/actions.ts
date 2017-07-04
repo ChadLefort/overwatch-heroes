@@ -1,8 +1,9 @@
 import request from 'axios';
+import * as _ from 'lodash';
 import { returntypeof } from 'react-redux-typescript';
-import { apiRootURL } from '../../config';
+import { externalApiRootURL, internalApiRootURL } from '../../config';
 import { RootState } from '../../config/reducers';
-import { Heros } from '../../models/';
+import { Hero, Heros } from '../../models/';
 import * as actions from './action-types';
 
 export const actionCreators = {
@@ -12,7 +13,7 @@ export const actionCreators = {
     fetchHerosNotLoading: () => ({
         type: actions.FETCH_HEROS_NOT_LOADING as typeof actions.FETCH_HEROS_NOT_LOADING,
     }),
-    fetchHerosSuccess: (payload: Heros) => ({
+    fetchHerosSuccess: (payload: Array<Hero>) => ({
         type: actions.FETCH_HEROS_SUCCESS as typeof actions.FETCH_HEROS_SUCCESS,
         payload,
     }),
@@ -24,14 +25,23 @@ export const actionCreators = {
         dispatch(actionCreators.fetchHerosLoading());
 
         try {
-            const response = await request.get(`${apiRootURL}/hero`);
-            dispatch(actionCreators.fetchHerosSuccess(response.data));
+            const externalHeroResponse = await request.get(`${externalApiRootURL}/hero`);
+            const internalHeroResponse = await request.get(`${internalApiRootURL}/heros`);
+            const mergedHeros = _.map(externalHeroResponse.data.data, (hero: Hero) => {
+                return _.assign(hero, _.find(internalHeroResponse.data, { id: hero.id }));
+            });
+
+            dispatch(actionCreators.fetchHerosSuccess(mergedHeros));
         } catch (error) {
             dispatch(actionCreators.fetchHerosError(error));
         } finally {
             dispatch(actionCreators.fetchHerosNotLoading());
         }
     },
+    updateFavoriteHeros: (payload: {id: number, isFavorite: boolean}) => ({
+        type: actions.UPDATE_FAVORITE_HEROS as typeof actions.UPDATE_FAVORITE_HEROS,
+        payload,
+    }),
 };
 
 const actionTypes = {
@@ -39,6 +49,7 @@ const actionTypes = {
     fetchHerosNotLoading: returntypeof(actionCreators.fetchHerosNotLoading),
     fetchHerosSuccess: returntypeof(actionCreators.fetchHerosSuccess),
     fetchHerosError: returntypeof(actionCreators.fetchHerosError),
+    updateFavoriteHeros: returntypeof(actionCreators.updateFavoriteHeros),
 };
 
 export type Action = typeof actionTypes[keyof typeof actionTypes];

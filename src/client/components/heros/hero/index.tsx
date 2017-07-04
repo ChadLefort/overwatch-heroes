@@ -10,6 +10,7 @@ import Stats from './stats';
 type Props = {
     loading: boolean;
     hero: Hero;
+    updateFavoriteHero: (isFavorite: boolean) => Promise<void>,
 };
 
 export default class HeroPage extends React.Component<Props, {}> {
@@ -19,7 +20,7 @@ export default class HeroPage extends React.Component<Props, {}> {
 
         return (
             <Segment loading={loading} basic={true}>
-                <HeaderRow hero={hero} />
+                <HeaderRow hero={hero} updateFavoriteHero={this.props.updateFavoriteHero} />
                 <Grid>
                     <Grid.Row>
                         <Grid.Column>

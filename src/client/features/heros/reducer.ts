@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { Hero } from '../../models';
 import * as actions from './action-types';
 import { Action } from './actions';
@@ -26,7 +27,14 @@ export function reducer(state = initialState, action: Action): State {
             return { ...state, error: action.error };
         }
         case actions.FETCH_HEROS_SUCCESS: {
-            return { ...state, heros: action.payload.data };
+            return { ...state, heros: action.payload };
+        }
+        case actions.UPDATE_FAVORITE_HEROS: {
+            const heros = _.map(state.heros, (hero) => {
+                return hero.id === action.payload.id ? {...hero, isFavorite: action.payload.isFavorite} : hero;
+            });
+
+            return { ...state, heros };
         }
         default:
             return state;

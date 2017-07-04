@@ -46,9 +46,9 @@ export class HerosController {
                 heroToUpdate.personalNote = req.body.personalNote;
 
                 await connection.manager.persist(heroToUpdate, id);
+
+                res.json(heroToUpdate);
             })
             .catch((error) => console.log(error));
-
-        res.sendStatus(200);
     }
 }

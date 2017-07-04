@@ -14,6 +14,7 @@ const mapStateToProps = (rootState: RootState) => ({
 const dispatchToProps = {
     fetchHero: actionCreators.fetchHero,
     resetHero: actionCreators.resetHero,
+    updateFavoriteHero: actionCreators.updateFavoriteHero as any,
 };
 
 type ParamsProps = {
@@ -21,7 +22,7 @@ type ParamsProps = {
 };
 
 type Params = {
-    id: number;
+    id: string;
 };
 
 const stateProps = returntypeof(mapStateToProps);
@@ -37,17 +38,21 @@ class HeroContainer extends React.Component<Props, {}> {
         this.props.resetHero();
     }
 
-    public componentWillReceiveProps(nextProps) {
+    public componentWillReceiveProps(nextProps: Props) {
         if (nextProps.params.id !== this.props.params.id) {
             this.props.fetchHero(nextProps.params.id);
         }
+    }
+
+    public updateFavoriteHero = (isFavorite: boolean) => {
+         return this.props.updateFavoriteHero(this.props.params.id, isFavorite);
     }
 
     public render() {
         const { loading, hero } = this.props;
 
         return (
-            <Hero loading={loading} hero={hero} />
+            <Hero loading={loading} hero={hero} updateFavoriteHero={this.updateFavoriteHero} />
         );
     }
 }

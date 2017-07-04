@@ -28,4 +28,6 @@ export class Hero {
     public sub_roles: Array<any>;
     public abilities: Array<Ability>;
     public rewards: Array<Reward>;
+    public isFavorite: boolean;
+    public personalNote: string;
 }

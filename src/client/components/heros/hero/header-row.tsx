@@ -6,6 +6,7 @@ import FavoriteHero from '../../common/favorite-hero';
 
 type Props = {
     hero: Hero;
+    updateFavoriteHero: (isFavorite: boolean) => Promise<void>,
 };
 
 const HeaderRow = (props: Props) => {
@@ -25,7 +26,7 @@ const HeaderRow = (props: Props) => {
                     </Header>
                 </Grid.Column>
                 <Grid.Column textAlign="right">
-                    <FavoriteHero />
+                    <FavoriteHero isFavorite={hero.isFavorite} updateFavoriteHero={props.updateFavoriteHero} />
                 </Grid.Column>
             </Grid.Row>
         </Grid>
