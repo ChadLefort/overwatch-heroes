@@ -10,12 +10,13 @@ export class HeroController {
     public create( @Req() req: Request, @Res() res: Response): void {
         connection
             .then(async (connection) => {
+                const heroRepository = connection.getRepository(Hero);
 
                 for (let i = 1; i <= 24; i++) {
                     const hero = new Hero();
                     hero.isFavorite = false;
 
-                    await connection.manager.persist(hero);
+                    await heroRepository.persist(hero);
                 }
             })
             .catch((error) => console.log(error));
@@ -26,14 +27,14 @@ export class HeroController {
     @Get()
     public favorites( @Req() req: Request, @Res() res: Response): void {
         connection
-            .then(async (connection) => res.json(await connection.manager.find(Hero)))
+            .then(async (connection) => res.json(await connection.getRepository(Hero).find()))
             .catch((error) => console.log(error));
     }
 
     @Get(':id')
     public favoritesById( @UrlParam('id') id: number, @Req() req: Request, @Res() res: Response): void {
         connection
-            .then(async (connection) => res.json(await connection.manager.findOneById(Hero, id)))
+            .then(async (connection) => res.json(await connection.getRepository(Hero).findOneById(id)))
             .catch((error) => console.log(error));
     }
 
@@ -41,11 +42,12 @@ export class HeroController {
     public updateFavorites( @UrlParam('id') id: number, @Req() req: Request, @Res() res: Response): void {
         connection
             .then(async (connection) => {
-                const heroToUpdate = await connection.manager.findOneById(Hero, id);
+                const heroRepository = connection.getRepository(Hero);
+                const heroToUpdate = await heroRepository.findOneById(id);
                 heroToUpdate.isFavorite = req.body.isFavorite;
                 heroToUpdate.personalNote = req.body.personalNote;
 
-                await connection.manager.persist(heroToUpdate, id);
+                await heroRepository.persist(heroToUpdate);
 
                 res.json(heroToUpdate);
             })
