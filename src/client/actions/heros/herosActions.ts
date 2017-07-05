@@ -39,8 +39,8 @@ export const actionCreators = {
                 dispatch(actionCreators.fetchHerosNotLoading());
             }
         },
-    updateFavoriteHeros: (payload: { id: number, isFavorite: boolean }) => ({
-        type: actions.UPDATE_FAVORITE_HEROS as typeof actions.UPDATE_FAVORITE_HEROS,
+    updateHeros: (payload: Hero) => ({
+        type: actions.UPDATE_HEROS as typeof actions.UPDATE_HEROS,
         payload,
     }),
 };
@@ -50,7 +50,7 @@ const actionTypes = {
     fetchHerosNotLoading: returntypeof(actionCreators.fetchHerosNotLoading),
     fetchHerosSuccess: returntypeof(actionCreators.fetchHerosSuccess),
     fetchHerosError: returntypeof(actionCreators.fetchHerosError),
-    updateFavoriteHeros: returntypeof(actionCreators.updateFavoriteHeros),
+    updateHeros: returntypeof(actionCreators.updateHeros),
 };
 
 export type Action = typeof actionTypes[keyof typeof actionTypes];

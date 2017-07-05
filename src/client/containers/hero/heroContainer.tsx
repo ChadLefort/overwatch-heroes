@@ -5,6 +5,7 @@ import { Dispatch } from 'redux';
 import { Dimmer, Loader, Segment } from 'semantic-ui-react';
 import { actionCreators } from '../../actions/hero/heroActions';
 import HeroPage from '../../components/hero/HeroPage';
+import { Hero } from '../../models';
 import { RootState } from '../../reducers/reducers';
 
 const mapStateToProps = (rootState: RootState) => ({
@@ -15,8 +16,7 @@ const mapStateToProps = (rootState: RootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch<RootState>) => ({
     fetchHero: (id: string) => dispatch(actionCreators.fetchHero(id)),
     resetHero: () => dispatch(actionCreators.resetHero()),
-    updateFavoriteHero: (id: string, isFavorite: boolean) =>
-        dispatch(actionCreators.updateFavoriteHero(id, isFavorite)),
+    updateHero: (hero: Hero) => dispatch(actionCreators.updateHero(hero)),
 });
 
 type ParamsProps = {
@@ -47,15 +47,15 @@ class HeroContainer extends React.Component<Props, {}> {
         }
     }
 
-    public updateFavoriteHero = (isFavorite: boolean) => {
-        return this.props.updateFavoriteHero(this.props.params.id, isFavorite);
+    public updateHero = (hero: Hero) => {
+        return this.props.updateHero(hero);
     }
 
     public render() {
         const { loading, hero } = this.props;
 
         return (
-            <HeroPage loading={loading} hero={hero} updateFavoriteHero={this.updateFavoriteHero} />
+            <HeroPage loading={loading} hero={hero} updateHero={this.updateHero} />
         );
     }
 }

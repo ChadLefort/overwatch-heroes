@@ -31,9 +31,8 @@ export function reducer(state = initialState, action: Action): State {
         case actions.RESET_HERO: {
             return { ...state, hero: new Hero() };
         }
-        case actions.UPDATE_FAVORITE_HERO_SUCCESS: {
-            const hero = { ...state.hero, isFavorite: action.payload };
-            return { ...state, hero };
+        case actions.UPDATE_HERO_SUCCESS: {
+            return { ...state, hero: action.payload };
         }
         default:
             return state;

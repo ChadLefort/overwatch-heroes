@@ -29,10 +29,8 @@ export function reducer(state = initialState, action: Action): State {
         case actions.FETCH_HEROS_SUCCESS: {
             return { ...state, heros: action.payload };
         }
-        case actions.UPDATE_FAVORITE_HEROS: {
-            const heros = _.map(state.heros, (hero) =>
-                hero.id === action.payload.id ? { ...hero, isFavorite: action.payload.isFavorite } : hero);
-
+        case actions.UPDATE_HEROS: {
+            const heros = _.map(state.heros, (hero) => hero.id === action.payload.id ? action.payload : hero);
             return { ...state, heros };
         }
         default:

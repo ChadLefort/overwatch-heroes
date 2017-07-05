@@ -11,7 +11,7 @@ import Stats from './stats';
 type Props = {
     loading: boolean;
     hero: Hero;
-    updateFavoriteHero: (isFavorite: boolean) => Promise<AxiosResponse>,
+    updateHero: (hero: Hero) => Promise<AxiosResponse>,
 };
 
 export default class HeroPage extends React.Component<Props, {}> {
@@ -21,8 +21,8 @@ export default class HeroPage extends React.Component<Props, {}> {
 
         return (
             <Segment loading={loading} basic={true}>
-                <HeaderRow hero={hero} updateFavoriteHero={this.props.updateFavoriteHero} />
                 <Grid>
+                    <HeaderRow hero={hero} updateHero={this.props.updateHero} />
                     <Grid.Row>
                         <Grid.Column>
                             <p>{hero.description}</p>
@@ -31,8 +31,8 @@ export default class HeroPage extends React.Component<Props, {}> {
                     <Biography hero={hero} />
                     <Stats hero={hero} />
                     <Abilities abilities={hero.abilities} />
-                    <PersonalNote id={hero.id} />
                 </Grid>
+                <PersonalNote hero={hero} />
             </Segment>
         );
     }

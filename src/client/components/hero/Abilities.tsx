@@ -19,7 +19,7 @@ const Abilities = (props: Props) => {
         <Grid.Row>
             <Grid.Column>
                 <Header as="h3">Abilities</Header>
-                <Card.Group items={items} itemsPerRow={3} />
+                <Card.Group items={items} itemsPerRow={3} stackable={true} />
             </Grid.Column>
         </Grid.Row>
     );

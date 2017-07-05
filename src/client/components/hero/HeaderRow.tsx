@@ -1,13 +1,13 @@
 import { AxiosResponse } from 'axios';
 import * as _ from 'lodash';
 import * as React from 'react';
-import { Button, Grid, Header, Icon, Image  } from 'semantic-ui-react';
+import { Button, Grid, Header, Icon, Image } from 'semantic-ui-react';
 import { Hero } from '../../models/hero';
 import FavoriteHero from './FavoriteHero';
 
 type Props = {
     hero: Hero;
-    updateFavoriteHero: (isFavorite: boolean) => Promise<AxiosResponse>,
+    updateHero: (hero: Hero) => Promise<AxiosResponse>,
 };
 
 const HeaderRow = (props: Props) => {
@@ -19,18 +19,14 @@ const HeaderRow = (props: Props) => {
     }
 
     return (
-        <Grid columns={2}>
-            <Grid.Row>
-                <Grid.Column>
-                    <Header as="h1">
-                        {image} {hero.name}
-                    </Header>
-                </Grid.Column>
-                <Grid.Column textAlign="right">
-                    <FavoriteHero isFavorite={hero.isFavorite} updateFavoriteHero={props.updateFavoriteHero} />
-                </Grid.Column>
-            </Grid.Row>
-        </Grid>
+        <Grid.Row>
+            <Grid.Column width={8} textAlign="left">
+                <Header as="h1">{image} {hero.name}</Header>
+            </Grid.Column>
+            <Grid.Column width={8} textAlign="right">
+                <FavoriteHero hero={hero} updateHero={props.updateHero} />
+            </Grid.Column>
+        </Grid.Row>
     );
 };
 

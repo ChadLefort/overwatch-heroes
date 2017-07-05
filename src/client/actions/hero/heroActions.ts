@@ -43,17 +43,21 @@ export const actionCreators = {
     resetHero: () => ({
         type: actions.RESET_HERO as typeof actions.RESET_HERO,
     }),
-    updateFavoriteHeroSuccess: (payload: boolean) => ({
-        type: actions.UPDATE_FAVORITE_HERO_SUCCESS as typeof actions.UPDATE_FAVORITE_HERO_SUCCESS,
+    updateHeroSuccess: (payload: Hero) => ({
+        type: actions.UPDATE_HERO_SUCCESS as typeof actions.UPDATE_HERO_SUCCESS,
         payload,
     }),
-    updateFavoriteHero: (id: string, isFavorite: boolean): ThunkAction<Promise<AxiosResponse>, RootState, null> =>
+    updateHero: (hero: Hero): ThunkAction<Promise<AxiosResponse>, RootState, null> =>
         async (dispatch) => {
-            const convertedId = _.parseInt(id);
-            const response = await request.post(`${serviceTypes.INTERNAL_API_ROOT_URL}/hero/${id}`, { id: convertedId, isFavorite });
+            const data = {
+                id: hero.id,
+                isFavorite: hero.isFavorite,
+                personalNote: hero.personalNote,
+            };
+            const response = await request.post(`${serviceTypes.INTERNAL_API_ROOT_URL}/hero/${hero.id}`, data);
 
-            dispatch(actionCreators.updateFavoriteHeroSuccess(isFavorite));
-            dispatch(herosActionCreators.updateFavoriteHeros({ id: convertedId, isFavorite }));
+            dispatch(actionCreators.updateHeroSuccess(hero));
+            dispatch(herosActionCreators.updateHeros(hero));
 
             return response;
         },
@@ -65,7 +69,7 @@ const actionTypes = {
     fetchHeroSuccess: returntypeof(actionCreators.fetchHeroSuccess),
     fetchHeroError: returntypeof(actionCreators.fetchHeroError),
     resetHero: returntypeof(actionCreators.resetHero),
-    updateFavoriteHeroSuccess: returntypeof(actionCreators.updateFavoriteHeroSuccess),
+    updateHeroSuccess: returntypeof(actionCreators.updateHeroSuccess),
 };
 
 export type Action = typeof actionTypes[keyof typeof actionTypes];
