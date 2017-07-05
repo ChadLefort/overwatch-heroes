@@ -32,7 +32,7 @@ export default class HeroPage extends React.Component<Props, {}> {
                     <Stats hero={hero} />
                     <Abilities abilities={hero.abilities} />
                 </Grid>
-                <PersonalNote hero={hero} />
+                <PersonalNote hero={hero} updateHero={this.props.updateHero} />
             </Segment>
         );
     }
