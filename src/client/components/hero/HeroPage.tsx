@@ -5,7 +5,7 @@ import { Hero } from '../../models/hero';
 import Abilities from './abilities';
 import Biography from './biography';
 import HeaderRow from './HeaderRow';
-import PersonalNote from './PersonalNote';
+import PersonalNote from './PersonalNote/PersonalNote';
 import Stats from './stats';
 
 type Props = {
