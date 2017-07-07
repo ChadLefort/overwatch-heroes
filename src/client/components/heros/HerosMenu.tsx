@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import { map } from 'lodash/fp';
 import * as React from 'react';
 import { Link } from 'react-router';
 import { Icon, Menu } from 'semantic-ui-react';
@@ -10,13 +10,12 @@ type Props = {
 
 const HerosMenu = (props: Props) => {
     const { heros } = props;
-    const mappedHeros = _.map(heros, (hero: Hero, key: number) =>
+    const mappedHeros = map((hero: Hero) =>
         (
-            <Menu.Item link={true} key={key} as={Link} to={`/heros/${hero.id}`}>
+            <Menu.Item link={true} key={hero.id} as={Link} to={`/heros/${hero.id}`}>
                 {hero.isFavorite && <Icon name="favorite" />} {hero.name}
             </Menu.Item>
-        )
-    );
+        ), heros);
 
     return (
         <Menu vertical={true} fluid={true}>

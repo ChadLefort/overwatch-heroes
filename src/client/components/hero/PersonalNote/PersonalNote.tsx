@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import * as _ from 'lodash';
+import { isNil } from 'lodash/fp';
 import * as React from 'react';
 import { Button, Confirm, Form, Grid, Header, TextArea } from 'semantic-ui-react';
 import { Hero } from '../../../models/hero';
@@ -49,7 +49,7 @@ export default class PersonalNote extends React.Component<Props, {}> {
 
     public render() {
         const { personalNote } = this.props.hero;
-        const buttonText = _.isNil(personalNote) ? 'Add' : 'Edit';
+        const buttonText = isNil(personalNote) ? 'Add' : 'Edit';
 
         if (this.state.isEditing) {
             return (

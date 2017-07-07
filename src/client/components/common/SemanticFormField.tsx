@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import { isNil } from 'lodash/fp';
 import * as React from 'react';
 import { WrappedFieldProps } from 'redux-form';
 import { Form, Input, Message, TextArea } from 'semantic-ui-react';
@@ -12,7 +12,7 @@ type OwnProps = {
 type Props = WrappedFieldProps<FormState> & OwnProps;
 
 const SemanticFormField = (props: Props) => {
-    const As = !_.isNil(props.as) ? props.as : Input;
+    const As = isNil(props.as) ? props.as : Input;
 
     return (
         <Form.Field>

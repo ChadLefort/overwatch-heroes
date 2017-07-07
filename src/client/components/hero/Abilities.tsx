@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import { map } from 'lodash/fp';
 import * as React from 'react';
 import { Card, Grid, Header } from 'semantic-ui-react';
 import { Ability, Hero } from '../../models/';
@@ -9,9 +9,9 @@ type Props = {
 
 const Abilities = (props: Props) => {
     const { abilities } = props;
-    const items = _.map(abilities, (ability) => {
+    const items = map((ability: Ability) => {
         return { header: ability.name, description: ability.description };
-    });
+    }, abilities);
 
     return (
         <Grid.Row>

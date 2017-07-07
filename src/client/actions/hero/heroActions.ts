@@ -1,5 +1,5 @@
 import request, { AxiosResponse } from 'axios';
-import * as _ from 'lodash';
+import { assign } from 'lodash/fp';
 import { returntypeof } from 'react-redux-typescript';
 import { ThunkAction } from 'redux-thunk';
 import * as actions from '../../constants/heroTypes';
@@ -31,7 +31,7 @@ export const actionCreators = {
                 const externalHeroResponse = await request.get(`${serviceTypes.EXTERNAL_API_ROOT_URL}/hero/${id}`);
                 const internalHeroResponse = await request.get(`${serviceTypes.INTERNAL_API_ROOT_URL}/hero/${id}`);
                 const hero: Hero = externalHeroResponse.data;
-                const mergedHero: Hero = _.assign(hero, internalHeroResponse.data);
+                const mergedHero: Hero = assign(hero, internalHeroResponse.data);
 
                 dispatch(actionCreators.fetchHeroSuccess(mergedHero));
             } catch (error) {

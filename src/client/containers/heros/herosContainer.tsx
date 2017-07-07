@@ -1,9 +1,7 @@
-import * as _ from 'lodash';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { returntypeof } from 'react-redux-typescript';
-import { Container, Grid, Menu, Segment } from 'semantic-ui-react';
-import { actionCreators } from '../../actions/heros/herosActions';
+import { Grid, Segment } from 'semantic-ui-react';
 import HerosMenu from '../../components/heros/HerosMenu';
 import { RootState } from '../../reducers/reducers';
 

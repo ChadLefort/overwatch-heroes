@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import * as _ from 'lodash';
+import { isNil } from 'lodash/fp';
 import * as React from 'react';
 import { Button, Grid, Header, Icon, Image } from 'semantic-ui-react';
 import { Hero } from '../../models/hero';
@@ -14,7 +14,7 @@ const HeaderRow = (props: Props) => {
     const { hero } = props;
     let image: JSX.Element;
 
-    if (!_.isNil(hero.id)) {
+    if (isNil(hero.id)) {
         image = <Image shape="rounded" src={require(`../../../assets/heros/${hero.id}.png`)} />;
     }
 

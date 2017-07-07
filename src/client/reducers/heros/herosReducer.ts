@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import { map } from 'lodash/fp';
 import { Action } from '../../actions/heros/herosActions';
 import * as actions from '../../constants/herosTypes';
 import { Hero } from '../../models';
@@ -30,7 +30,7 @@ export function reducer(state = initialState, action: Action): State {
             return { ...state, heros: action.payload };
         }
         case actions.UPDATE_HEROS: {
-            const heros = _.map(state.heros, (hero) => hero.id === action.payload.id ? action.payload : hero);
+            const heros = map((hero: Hero) => hero.id === action.payload.id ? action.payload : hero, state.heros) as Array<Hero>;
             return { ...state, heros };
         }
         default:
