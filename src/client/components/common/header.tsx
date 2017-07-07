@@ -5,6 +5,7 @@ import './_header.scss';
 
 const Header = () => (
     <Menu className="main-nav" stackable={true}>
+        <Menu.Item><img src={require(`../../../assets/logo.png`)} /></Menu.Item>
         <Menu.Item name="home" as={Link} to="/" />
         <Menu.Item name="heros" as={Link} to="/heros" />
     </Menu>

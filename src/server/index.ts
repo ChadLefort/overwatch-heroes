@@ -15,7 +15,7 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, '/views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// app.use(serveFavicon(path.join(__dirname, '../public/assets/favicon.png')));
+app.use(serveFavicon(path.join(__dirname, '../public/assets/logo.png')));
 
 if (process.env.NODE_ENV === 'development') {
     const webpack = require('webpack');
