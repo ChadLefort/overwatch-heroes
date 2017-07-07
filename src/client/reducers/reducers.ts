@@ -6,7 +6,7 @@ import { reducer as herosReducer, State as HerosState } from './heros/herosReduc
 export type RootState = {
     heroReducer: HeroState,
     herosReducer: HerosState,
-    formReducer: FormState
+    formReducer: FormState,
 };
 
 export const rootReducer = combineReducers<RootState>({

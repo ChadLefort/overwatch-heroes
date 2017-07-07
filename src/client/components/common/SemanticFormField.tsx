@@ -6,7 +6,7 @@ import { FormState } from '../hero/PersonalNote/types';
 
 type OwnProps = {
     as: any,
-    placeholder: string
+    placeholder: string,
 };
 
 type Props = WrappedFieldProps<FormState> & OwnProps;

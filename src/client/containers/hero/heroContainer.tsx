@@ -20,11 +20,11 @@ const mapDispatchToProps = (dispatch: Dispatch<RootState>) => ({
 });
 
 type ParamsProps = {
-    params: Params;
+    params: Params,
 };
 
 type Params = {
-    id: string;
+    id: string,
 };
 
 const stateProps = returntypeof(mapStateToProps);

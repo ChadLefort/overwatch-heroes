@@ -5,7 +5,7 @@ import { Icon, Menu } from 'semantic-ui-react';
 import { Hero, Heros } from '../../models/';
 
 type Props = {
-    heros: Array<Hero>;
+    heros: Array<Hero>,
 };
 
 const HerosMenu = (props: Props) => {

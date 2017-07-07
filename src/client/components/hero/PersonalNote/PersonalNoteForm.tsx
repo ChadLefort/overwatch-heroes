@@ -12,7 +12,7 @@ import { FormState, PersonalNoteForm as FormData } from './types';
 type OwnProps = {
     personalNote: string,
     onSubmit: (values: FormData) => void,
-    toggleEdit: () => void
+    toggleEdit: () => void,
 };
 
 type Props = FormProps<FormData, any, FormState> & OwnProps;

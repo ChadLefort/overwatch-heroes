@@ -4,15 +4,13 @@ import { Card, Grid, Header } from 'semantic-ui-react';
 import { Ability, Hero } from '../../models/';
 
 type Props = {
-    abilities: Array<Ability>;
+    abilities: Array<Ability>,
 };
 
 const Abilities = (props: Props) => {
     const { abilities } = props;
-    const items = [];
-
-    _.forEach(abilities, (ability) => {
-        items.push({ header: ability.name, description: ability.description });
+    const items = _.map(abilities, (ability) => {
+        return { header: ability.name, description: ability.description };
     });
 
     return (

@@ -9,31 +9,30 @@ import PersonalNote from './PersonalNote/PersonalNote';
 import Stats from './stats';
 
 type Props = {
-    loading: boolean;
-    hero: Hero;
+    loading: boolean,
+    hero: Hero,
     updateHero: (hero: Hero) => Promise<AxiosResponse>,
 };
 
-export default class HeroPage extends React.Component<Props, {}> {
+const HeroPage = (props: Props) => {
+    const { hero, loading } = props;
 
-    public render() {
-        const { hero, loading } = this.props;
+    return (
+        <Segment loading={loading} basic={true}>
+            <Grid>
+                <HeaderRow hero={hero} updateHero={props.updateHero} />
+                <Grid.Row>
+                    <Grid.Column>
+                        <p>{hero.description}</p>
+                    </Grid.Column>
+                </Grid.Row>
+                <Biography hero={hero} />
+                <Stats hero={hero} />
+                <Abilities abilities={hero.abilities} />
+            </Grid>
+            <PersonalNote hero={hero} updateHero={props.updateHero} />
+        </Segment>
+    );
+};
 
-        return (
-            <Segment loading={loading} basic={true}>
-                <Grid>
-                    <HeaderRow hero={hero} updateHero={this.props.updateHero} />
-                    <Grid.Row>
-                        <Grid.Column>
-                            <p>{hero.description}</p>
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Biography hero={hero} />
-                    <Stats hero={hero} />
-                    <Abilities abilities={hero.abilities} />
-                </Grid>
-                <PersonalNote hero={hero} updateHero={this.props.updateHero} />
-            </Segment>
-        );
-    }
-}
+export default HeroPage;

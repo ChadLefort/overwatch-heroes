@@ -6,7 +6,7 @@ import { Hero } from '../../models/hero';
 import FavoriteHero from './FavoriteHero';
 
 type Props = {
-    hero: Hero;
+    hero: Hero,
     updateHero: (hero: Hero) => Promise<AxiosResponse>,
 };
 
@@ -14,7 +14,7 @@ const HeaderRow = (props: Props) => {
     const { hero } = props;
     let image: JSX.Element;
 
-    if (!_.isUndefined(hero.id)) {
+    if (!_.isNil(hero.id)) {
         image = <Image shape="rounded" src={require(`../../../assets/heros/${hero.id}.png`)} />;
     }
 

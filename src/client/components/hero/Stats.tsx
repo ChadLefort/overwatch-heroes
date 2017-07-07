@@ -3,7 +3,7 @@ import { Grid, Header, List } from 'semantic-ui-react';
 import { Hero } from '../../models/hero';
 
 type Props = {
-    hero: Hero;
+    hero: Hero,
 };
 
 const Stats = (props: Props) => {

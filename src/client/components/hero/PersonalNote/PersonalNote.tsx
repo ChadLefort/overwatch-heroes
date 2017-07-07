@@ -1,18 +1,19 @@
 import { AxiosResponse } from 'axios';
 import * as _ from 'lodash';
 import * as React from 'react';
-import { Button, Form, Grid, Header, TextArea } from 'semantic-ui-react';
+import { Button, Confirm, Form, Grid, Header, TextArea } from 'semantic-ui-react';
 import { Hero } from '../../../models/hero';
 import PersonalNoteForm from './PersonalNoteForm';
 import { PersonalNoteForm as FormData } from './types';
 
 type Props = {
     hero: Hero,
-    updateHero: (hero: Hero) => Promise<AxiosResponse>
+    updateHero: (hero: Hero) => Promise<AxiosResponse>,
 };
 
 type State = {
-    isEditing: boolean
+    confirmModalOpen: boolean,
+    isEditing: boolean,
 };
 
 export default class PersonalNote extends React.Component<Props, {}> {
@@ -20,7 +21,10 @@ export default class PersonalNote extends React.Component<Props, {}> {
 
     public constructor() {
         super();
-        this.state = { isEditing: false };
+        this.state = {
+            confirmModalOpen: false,
+            isEditing: false,
+        };
     }
 
     public componentWillReceiveProps(nextProps: Props) {
@@ -29,13 +33,18 @@ export default class PersonalNote extends React.Component<Props, {}> {
         }
     }
 
+    public showConfirmModal = () => this.setState({ confirmModalOpen: true });
+    public handleCancel = () => this.setState({ confirmModalOpen: false });
+    public toggleEdit = () => this.setState({ isEditing: !this.state.isEditing });
+
+    public handleConfirm = () => {
+        this.onSubmit({ personalNote: null });
+        this.setState({ confirmModalOpen: false });
+    }
+
     public onSubmit = async (values: FormData) => {
         await this.props.updateHero({ ...this.props.hero, personalNote: values.personalNote });
         this.setState({ isEditing: false });
-    }
-
-    public toggleEdit = () => {
-        this.setState({ isEditing: !this.state.isEditing });
     }
 
     public render() {
@@ -62,6 +71,8 @@ export default class PersonalNote extends React.Component<Props, {}> {
                         </Grid.Column>
                         <Grid.Column width={8} textAlign="right">
                             <Button onClick={this.toggleEdit}>{buttonText} Personal Note</Button>
+                            {personalNote && <Button onClick={this.showConfirmModal}>Delete Personal Note</Button>}
+                            <Confirm open={this.state.confirmModalOpen} onCancel={this.handleCancel} onConfirm={this.handleConfirm} />
                         </Grid.Column>
                     </Grid.Row>
                     {personalNote &&

@@ -5,7 +5,7 @@ import { Hero } from '../../models';
 
 type Props = {
     hero: Hero,
-    updateHero: (hero: Hero) => Promise<AxiosResponse>
+    updateHero: (hero: Hero) => Promise<AxiosResponse>,
 };
 
 type State = {
