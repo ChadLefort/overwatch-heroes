@@ -12,7 +12,7 @@ type OwnProps = {
 type Props = WrappedFieldProps<FormState> & OwnProps;
 
 const SemanticFormField = (props: Props) => {
-    const As = isNil(props.as) ? props.as : Input;
+    const As = !isNil(props.as) ? props.as : Input;
 
     return (
         <Form.Field>

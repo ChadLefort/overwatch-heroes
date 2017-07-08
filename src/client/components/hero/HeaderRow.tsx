@@ -14,7 +14,7 @@ const HeaderRow = (props: Props) => {
     const { hero } = props;
     let image: JSX.Element;
 
-    if (isNil(hero.id)) {
+    if (!isNil(hero.id)) {
         image = <Image shape="rounded" src={require(`../../../assets/heros/${hero.id}.png`)} />;
     }
 
