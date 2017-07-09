@@ -27,7 +27,8 @@
     "target": "es5"
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "stories/**/*"
   ],
   "exclude": [
     "node_modules",

@@ -22,7 +22,9 @@
     "watch:test": "npm run test -- --watch",
     "preversion": "npm run test",
     "version": "",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@types/body-parser": "^1.16.3",
@@ -102,7 +104,8 @@
     "tslint": "^5.4.3",
     "tslint-react": "^3.0.0",
     "webpack-dev-middleware": "^1.10.2",
-    "webpack-hot-middleware": "^2.18.0"
+    "webpack-hot-middleware": "^2.18.0",
+    "@storybook/react": "^3.1.8"
   },
   "engines": {
     "node": "7.4.0"
