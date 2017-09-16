@@ -4,11 +4,13 @@ import { Menu, Message } from 'semantic-ui-react';
 import './_header.scss';
 
 const Header = () => (
-    <Menu className="main-nav" stackable={true}>
-        <Menu.Item><img src={require(`../../../assets/logo.png`)} /></Menu.Item>
-        <Menu.Item name="home" as={Link} to="/" />
-        <Menu.Item name="heros" as={Link} to="/heros" />
-    </Menu>
+  <Menu className="main-nav" stackable={true}>
+    <Menu.Item>
+      <img src={require(`../../../assets/logo.png`)} />
+    </Menu.Item>
+    <Menu.Item name="home" as={Link} to="/" />
+    <Menu.Item name="heroes" as={Link} to="/heroes" />
+  </Menu>
 );
 
 export default Header;

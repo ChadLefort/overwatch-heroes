@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux';
 import { FormReducer as FormState, reducer as formReducer } from 'redux-form';
-import { reducer as heroReducer, State as HeroState } from './hero/heroReducer';
-import { reducer as herosReducer, State as HerosState } from './heros/herosReducer';
+import { reducer as heroesReducer, State as HeroesState } from './heroesReducer';
+import { reducer as heroReducer, State as HeroState } from './heroReducer';
 
 export type RootState = {
-    heroReducer: HeroState,
-    herosReducer: HerosState,
-    formReducer: FormState,
+  heroReducer: HeroState;
+  heroesReducer: HeroesState;
+  formReducer: FormState;
 };
 
 export const rootReducer = combineReducers<RootState>({
-    heroReducer,
-    herosReducer,
-    form: formReducer,
+  heroReducer,
+  heroesReducer,
+  form: formReducer
 });
